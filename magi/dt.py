@@ -95,7 +95,12 @@ def date_range(start, end, freq=None):
     if freq is None:
         dr = pd.date_range(start, end)
     else:
-        dr = pd.date_range(start, end, "%dD")
+        try:
+            freq_days = int(freq)
+            freq = '%dD' % freq_days
+        except ValueError:
+            pass
+        dr = pd.date_range(start, end, freq=freq)
 
     return [dt.date() for dt in dr.tolist()]
 
@@ -112,7 +117,7 @@ def date_range_str_to_dates(date_str, freq=None):
 def date_range_str_to_date_strs(date_str, freq=None):
     """gen date_strs from string like '2015-10-28--2015-11-08' to '2015-10-28'..."""
     start, end = parse_date_range_str(date_str)
-    return date_str_range(date_start, end, freq)
+    return date_str_range(start, end, freq)
 
 def date_range_str_to_start_and_end(date_range_str):
     ts = date_range_str.split('--')
@@ -205,10 +210,6 @@ def month_range(start, end):
 def gen_month_range_date_range_strs(start, end):
     return [gen_month_date_range_str(year, month)
             for year, month in month_range(start, end)]
-
-def date_range_str_to_date_strs(date_str):
-    start, end = parse_date_range_str(date_str)
-    return date_str_range(start, end)
 
 def parse_datetime_str(s):
     try:
