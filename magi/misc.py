@@ -54,7 +54,7 @@ def print_as_pickle(obj):
     print(pickle.dumps(obj))
 
 def open_pickle(fn):
-    with open(fn) as f:
+    with open(fn, 'rb') as f:
         return pickle.load(f)
 
 def save_as_csv(obj, fn, raw=True, header=False, index=False):
