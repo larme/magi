@@ -48,7 +48,7 @@ def any2dt(obj):
         return obj
     elif isinstance(obj, date):
         return date2dt(date)
-    elif isinstance(obj, basestring):
+    elif isinstance(obj, str):
         return parse_date_str(obj)
     else:
         raise TypeError("Cannot convert %s into datetime object" % obj)
@@ -62,7 +62,7 @@ def any2date(obj):
 
 def any2date_str(obj):
     """convert datetime, date or date_str to date_str"""
-    if isinstance(obj, basestring):
+    if isinstance(obj, str):
         return obj
 
     return str(any2date(obj))
